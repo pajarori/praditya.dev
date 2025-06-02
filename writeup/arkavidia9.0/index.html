@@ -16,81 +16,67 @@
  \__,_|_|  |_|\_\__,_| \_/  
                                    
 
-N2L - Sotong Always Sad                 Arkavidia 9.0 CTF Quals
-pajarori                                            15 Mar 2025
+N2L - Sotong Always Sad               Arkavidia 9.0 CTF Quals
+pajarori                                          15 Mar 2025
 53buahapel
 kirisaki
 
 [miscellaneous]
-    100% free flag ........................................... 1
-    beat frendy .............................................. 2
-    baby eth ................................................. 3
-    abstract art ............................................. 4
+    100% free flag ........................................ 1
+    beat frendy ........................................... 2
+    baby eth .............................................. 3
+    abstract art .......................................... 4
 [reverse enginering]
-    pyrev .................................................... 5
+    pyrev ................................................. 5
 [binary exploitation]
-    fortune's tale ........................................... 6
+    fortune's tale ........................................ 6
 [forensics]
-    bzip2 of death ........................................... 7
-    lolipop .................................................. 8
+    bzip2 of death ........................................ 7
+    lolipop ............................................... 8
 [cryptography]
-    wierd format ............................................. 9
+    wierd format .......................................... 9
 [web exploitation]
-    beta token .............................................. 10
-
-
-                          [miscellaneous]
-
-100% free flag
-
-overview
-    Pada chall ini, terdapat flag namun terbalik textnya, tinggal 
-    reverse untuk mendapatkan flag yang benar.
-
-flag
-    ARKAV{GoodLuck_and_HaveFun_SampaiJumpaDiBandung}
-
-beat frendy
-
-overview
-    Pada chall ini kita harus mengalahkan ai catur yang di deploy 
-    di server, untuk ini kami menggunakan ai juga buat nge beat 
-    nya disini kami pake stockfish kami buat skill level ke mentok 
-    di 20 biar jago.
-
-code
-    from pwn import *
-    import stockfish, re
-
-    engine = stockfish.Stockfish("/usr/bin/stockfish")
-    engine.set_depth(20)
-    engine.set_skill_level(20)
-
-    p = remote("20.195.43.216", 8091)
-
-    p.sendlineafter(b"(e.g., e2e4): ", b"g2g4")
-
-    position = ["g2g4"]
-
-    engine.set_position(position)
-    try:
-       while True:
-           stdout = p.recvuntil(b"(e.g., e2e4): ").decode("utf8")
-           oponent = re.findall(r"Frendy plays: ([a-h][1-8][a-h][1-8])", stdout)[0]
-           position.append(oponent)
-           engine.set_position(position)
-           best_move = engine.get_best_move()
-           position.append(best_move)
-
-           p.sendline(best_move.encode())
-           print(stdout + best_move)
-    except:
-       p.interactive()
-
-flag
-    ARKAV{hanya_sepuh_yang_berani_make_opening_g2-g4}
+    beta token ........................................... 10
 
     </pre>
+
+    <div style="width: 480px;">
+        <div style="width: 100%; display: flex; justify-content: center; padding-bottom: 1rem;">
+            [miscellaneous]
+        </div>
+        <div id="100%freeflag" style="padding-bottom: 1rem;">
+            <p style="font-weight: bold;">100% free flag</p>
+            <div style="padding-bottom: 1rem;">
+                <p style="padding: 0; margin: 0;">overview</p>
+                <p style="padding: 0 0 0 1rem; margin: 0;">Pada chall ini, terdapat flag namun terbalik textnya, tinggal
+                    reverse untuk
+                    mendapatkan flag yang benar.</p>
+            </div>
+            <div style="padding-bottom: 1rem;">
+                <p style="padding: 0; margin: 0;">flag</p>
+                <p style="padding: 0 0 0 1rem; margin: 0;">ARKAV{GoodLuck_and_HaveFun_SampaiJumpaDiBandung}</p>
+            </div>
+        </div>
+        <div id="beatfrendy" style="padding-bottom: 1rem;">
+            <p style="font-weight: bold;">beatfrendy</p>
+            <div style="padding-bottom: 1rem;">
+                <p style="padding: 0; margin: 0;">overview</p>
+                <p style="padding: 0 0 0 1rem; margin: 0;">Pada chall ini kita harus mengalahkan ai catur yang di deploy
+                    di server, untuk ini kami menggunakan ai juga buat nge beat
+                    nya disini kami pake stockfish kami buat skill level ke mentokdi 20 biar jago.</p>
+            </div>
+            <div style="padding-bottom: 1rem;">
+                <p style="padding: 0; margin: 0;">code</p>
+                <a style="padding: 0 0 0 1rem; margin: 0; color: antiquewhite;" href="beatfrendy.py">beatfrendy.py</a>
+            </div>
+            <div style="padding-bottom: 1rem;">
+                <p style="padding: 0; margin: 0;">flag</p>
+                <p style="padding: 0 0 0 1rem; margin: 0;">ARKAV{GoodLuck_and_HaveFun_SampaiJumpaDiBandung}</p>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>
